@@ -1,0 +1,44 @@
+
+
+
+W = 4
+H = 3
+array = [
+[1,1,1,1],
+[1,1,1,0],
+[1,1,1,1]]
+
+# H , W = list(map(int,input().split()))
+# array = []
+# for i in range(H):
+#   array.append(list(map(int,input())))
+
+
+from collections import deque
+
+deq = deque()
+deq.append([0,0])
+array[0][0] = 1
+
+while deq:
+  [x,y] = deq.popleft()
+
+  for i in [[0,1],[1,0],[-1,0],[0,-1]]:
+    xi = x + i[0]
+    yi = y + i[1]
+    
+    if 0> xi or xi >= H or 0> yi or yi >=W:
+      continue
+    
+    if array[xi][yi] == 0:
+      continue
+
+    if array[xi][yi] == 1:
+      deq.append([xi,yi])
+      array[xi][yi] = array[x][y] + 1
+
+# print(array[-1][-1])
+
+for i in range(H):
+  print(array[i])
+
