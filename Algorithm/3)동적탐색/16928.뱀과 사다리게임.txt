@@ -1,0 +1,32 @@
+from collections import deque
+
+q = deque()
+
+
+INF = float("inf")
+graph = [INF] * (101)
+trap = list(range(101))
+
+N,M = map(int,input().split())
+for i in range(N+M):
+  x,y = map(int,input().split())
+  trap[x] = y
+
+graph[1] = 0
+q.append(1)
+
+while q:
+  x = q.popleft()
+  
+  for i in range(1,7):
+
+    xi = x + i
+
+    if xi > 100: continue
+    if graph[xi] <= graph[x]: continue
+    if graph[trap[xi]] > graph[x] + 1:
+      graph[trap[xi]] = graph[x] + 1
+      q.append(trap[xi])
+
+
+print(graph[100])
