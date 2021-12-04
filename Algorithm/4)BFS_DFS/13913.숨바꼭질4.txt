@@ -1,0 +1,30 @@
+from collections import deque
+
+n, k = map(int,input().split())
+
+l = 100001
+INF = float("inf")
+t = [INF] * l
+route = list(range(0,l))
+
+t[n] = 1
+q = deque()
+q.append(n)
+
+while t[k] == INF:
+  x = q.popleft()
+  
+  for xi in [x+1, x-1, 2*x]:
+    if 0 <= xi < l and t[xi] == INF:
+      t[xi] = t[x] + 1
+      q.append(xi)
+      route[xi] = x
+
+print(t[k]-1)
+
+q = [k]
+for _ in range(t[k]-1):
+  q.append(route[k])
+  k = route[k]
+
+print(*q[::-1])
